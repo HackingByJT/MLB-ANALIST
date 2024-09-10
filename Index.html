@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos en Vivo - MLB</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background-color: #004080;
+        }
+        .navbar-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            color: #004080;
+            margin-bottom: 40px;
+        }
+        .list-group-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .list-group-item img {
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+        .list-group-item strong {
+            font-size: 1.1em;
+            font-family: 'Oswald', sans-serif;
+        }
+        .list-group-item .col-sm-2 {
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #004080;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #003366;
+        }
+        footer {
+            margin-top: 40px;
+            background-color: #004080;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Análisis MLB</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/analisis">Análisis Avanzado</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/suscripcion">Suscripción</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/noticias">Noticias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/scoreboard">Scoreboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/calendario">Calendario</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">JUEGO EN CURSO O JUEGO EN VIVO</h1>
+    <ul id="partidos-lista" class="list-group">
+        <!-- Los datos de los partidos se actualizarán aquí dinámicamente -->
+    </ul>
+</div>
+
+<script>
+// Función para actualizar los datos de los partidos en vivo
+function actualizarPartidos() {
+    $.ajax({
+        url: '/api/partidos',
+        method: 'GET',
+        success: function(data) {
+            let partidosHtml = '';
+            data.forEach(partido => {
+                partidosHtml += `
+                    <li class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col-sm-2">
+                                <img src="${partido.logo_local}" width="50" height="50">
+                                <div><strong>${partido.equipo_local}</strong></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <img src="${partido.logo_visitante}" width="50" height="50">
+                                <div><strong>${partido.equipo_visitante}</strong></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div><i class="fas fa-baseball-ball"></i> <strong>Marcador:</strong> ${partido.marcador_local} - ${partido.marcador_visitante}</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div><i class="fas fa-exclamation-circle"></i> <strong>Outs:</strong> ${partido.outs}</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div><i class="fas fa-user"></i> <strong>Bateador:</strong> ${partido.bateador_turno}</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div><i class="fas fa-user"></i> <strong>Pitcher:</strong> ${partido.pitcher_turno}</div>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            });
+            $('#partidos-lista').html(partidosHtml);
+        },
+        error: function(err) {
+            console.error('Error al obtener los partidos:', err);
+        }
+    });
+}
+
+// Actualizar los partidos cada 5 segundos
+setInterval(actualizarPartidos, 5000);
+
+// Llamada inicial para cargar los datos cuando se carga la página
+actualizarPartidos();
+</script>
+
+<footer>
+    <p>&copy; 2024 Análisis MLB. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

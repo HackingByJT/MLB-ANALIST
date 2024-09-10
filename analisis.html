@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Avanzado MLB</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background-color: #004080;
+        }
+        .navbar-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            color: #004080;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card h3 {
+            font-family: 'Oswald', sans-serif;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .btn-primary {
+            background-color: #004080;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #003366;
+        }
+        .form-control {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        footer {
+            margin-top: 40px;
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Análisis MLB</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/analisis">Análisis Avanzado</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/suscripcion">Suscripción</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/noticias">Noticias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/scoreboard">Scoreboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/calendario">Calendario</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">Análisis Avanzado</h1>
+
+    <form method="POST" action="/analisis">
+        <div class="mb-3">
+            <label for="equipo_local" class="form-label">Equipo Local</label>
+            <input type="text" class="form-control" id="equipo_local" name="equipo_local" placeholder="Ingrese el equipo local">
+        </div>
+        <div class="mb-3">
+            <label for="equipo_visitante" class="form-label">Equipo Visitante</label>
+            <input type="text" class="form-control" id="equipo_visitante" name="equipo_visitante" placeholder="Ingrese el equipo visitante">
+        </div>
+        <button type="submit" class="btn btn-primary">Generar Análisis</button>
+    </form>
+
+    {% if analisis %}
+    <div class="mt-5">
+        <h2 class="text-center">{{ analisis.equipo_local }} vs {{ analisis.equipo_visitante }}</h2>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="stat-card">
+                    <h3>Equipo Local</h3>
+                    <p><strong>ERA:</strong> {{ analisis.metrics.ERA_local }}</p>
+                    <p><strong>OPS:</strong> {{ analisis.metrics.OPS_local }}</p>
+                    <p><strong>WHIP:</strong> {{ analisis.metrics.WHIP_local }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="stat-card">
+                    <h3>Equipo Visitante</h3>
+                    <p><strong>ERA:</strong> {{ analisis.metrics.ERA_visitante }}</p>
+                    <p><strong>OPS:</strong> {{ analisis.metrics.OPS_visitante }}</p>
+                    <p><strong>WHIP:</strong> {{ analisis.metrics.WHIP_visitante }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card mt-4">
+            <h3>Recomendación de Apuesta</h3>
+            <p>{{ analisis.recomendacion_apuesta }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<footer>
+    <p>&copy; 2024 MLB Analysis</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

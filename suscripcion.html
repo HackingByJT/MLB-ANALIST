@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscripción Jugadas Recomendadas</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background-color: #004080;
+        }
+        .navbar-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            color: #004080;
+            margin-bottom: 30px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        footer {
+            margin-top: 40px;
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Análisis MLB</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/analisis">Análisis Avanzado</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/suscripcion">Suscripción</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/noticias">Noticias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/scoreboard">Scoreboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/calendario">Calendario</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">Suscripción de Jugadas Recomendadas</h1>
+    <p class="text-center">Accede a nuestras jugadas recomendadas con un 90% de efectividad por tan solo <strong>$10 USD</strong>.</p>
+    <div class="d-flex justify-content-center">
+        <div id="paypal-container-92QH6GVHFCRBL"></div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Análisis MLB. Todos los derechos reservados.</p>
+</footer>
+
+<!-- PayPal SDK and Button -->
+<script src="https://www.paypal.com/sdk/js?client-id=BAAtnRdGJ9tcGeauLOviNaImv-aEXh_A0LT0u92Wk5IXDKhMwamIYThlbYtuPaZlMF5GD-uTuA_AoQTz9g&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "92QH6GVHFCRBL",
+  }).render("#paypal-container-92QH6GVHFCRBL")
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
